@@ -1,12 +1,12 @@
 import React, { Component } from "react";
+import If from "./if";
 
 export default props => {
-  if (props.hide) {
-    return null;
-  }
   return (
-    <button className={`btn btn-${props.style}`}>
-      <i className={`fa fa-${props.icon}`} />
-    </button>
+    <If condicao={!props.hide}>
+      <button className={`btn btn-${props.style}`}>
+        <i className={`fa fa-${props.icon}`} />
+      </button>
+    </If>
   );
 };

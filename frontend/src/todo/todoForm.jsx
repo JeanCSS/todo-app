@@ -10,7 +10,7 @@ export default props => (
         placeholder="add uma tarefa"
       />
     </Grid>
-    <IconButton style="secundary" icon="plus" />
+    <IconButton style="primary" icon="plus" hide={false} />
     <Grid col="12 3 2" />
   </div>
 );
