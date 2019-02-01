@@ -1,12 +1,35 @@
 import React from "react";
+import IconButton from "../tempate/iconButton";
 
-export default props => (
-  <div>
-    <h1>Lista</h1>
-    <li>
-      <ul>item 1</ul>
-      <ul>item 2</ul>
-      <ul>item 3</ul>
-    </li>
-  </div>
-);
+export default props => {
+  const renderRows = () => {
+    const list = props.list || [];
+    return list.map(l => (
+      <tr key={l._id}>
+        <td>{l.description}</td>
+        <td>
+          <IconButton
+            style="danger"
+            icon="trash-o"
+            hide={false}
+            onClick={() => props.handleDelete(l)}
+          />
+        </td>
+      </tr>
+    ));
+  };
+
+  return (
+    <div>
+      <table className="table">
+        <thead>
+          <tr>
+            <td>Descricao</td>
+            <td>Ações</td>
+          </tr>
+        </thead>
+        <tbody>{renderRows()}</tbody>
+      </table>
+    </div>
+  );
+};

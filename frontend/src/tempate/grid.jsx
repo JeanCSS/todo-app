@@ -15,7 +15,6 @@ class Grid extends Component {
 
   render() {
     const gridClass = this.toCssClasses(this.props.col);
-    console.log("Grid: ", gridClass);
     return <div className={gridClass}>{this.props.children}</div>;
   }
 }
