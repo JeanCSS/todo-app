@@ -1,6 +1,6 @@
 import "modules/bootstrap/dist/css/bootstrap.min.css";
 import "modules/font-awesome/css/font-awesome.min.css";
-
+import "../tempate/custon.css";
 import React from "react";
 import Routers from "./routes";
 import Menu from "../tempate/menu";

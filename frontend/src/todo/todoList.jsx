@@ -6,12 +6,24 @@ export default props => {
     const list = props.list || [];
     return list.map(l => (
       <tr key={l._id}>
-        <td>{l.description}</td>
+        <td className={l.done ? "cumprido" : ""}>{l.description}</td>
         <td>
+          <IconButton
+            style="success"
+            icon="check"
+            hide={l.done}
+            onClick={() => props.handleMarkAsDone(l)}
+          />
+          <IconButton
+            style="warning"
+            icon="undo"
+            hide={!l.done}
+            onClick={() => props.handleMarkAsPending(l)}
+          />
           <IconButton
             style="danger"
             icon="trash-o"
-            hide={false}
+            hide={!l.done}
             onClick={() => props.handleDelete(l)}
           />
         </td>
@@ -24,7 +36,9 @@ export default props => {
       <table className="table">
         <thead>
           <tr>
-            <td>Descricao</td>
+            <td>
+              <span>Descricao</span>
+            </td>
             <td>Ações</td>
           </tr>
         </thead>

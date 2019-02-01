@@ -6,7 +6,7 @@ export default props => {
     <If condicao={!props.hide}>
       <button
         className={`btn btn-${props.style}`}
-        onClick={() => props.onClick("teste")}
+        onClick={() => props.onClick()}
       >
         <i className={`fa fa-${props.icon}`} />
       </button>
