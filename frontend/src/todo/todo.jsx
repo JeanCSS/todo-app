@@ -13,8 +13,10 @@ class Todo extends Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.handleMarkAsDone = this.handleMarkAsDone.bind(this);
     this.handleMarkAsPending = this.handleMarkAsPending.bind(this);
+    this.handleClear = this.handleClear.bind(this);
 
     this.handlelist();
   }
@@ -23,34 +25,37 @@ class Todo extends Component {
     const description = this.state.description;
     axios.post(URL, { description }).then(resp => this.handlelist());
   }
-
   handleChange(e) {
     this.setState({ ...this.state, description: e.target.value });
-    console.log(this.state.description);
   }
-
+  handleClear() {
+    this.handlelist();
+  }
+  handleSearch() {
+    this.handlelist(this.state.description);
+  }
   handleDelete(todo) {
-    axios.delete(`${URL}/${todo._id}`).then(resp => this.handlelist());
+    axios
+      .delete(`${URL}/${todo._id}`)
+      .then(resp => this.handlelist(this.state.description));
   }
-
   handleMarkAsDone(todo) {
     axios
       .put(`${URL}/${todo._id}`, { ...todo, done: true })
-      .then(resp => this.handlelist());
+      .then(resp => this.handlelist(this.state.description));
   }
   handleMarkAsPending(todo) {
     axios
       .put(`${URL}/${todo._id}`, { ...todo, done: false })
-      .then(resp => this.handlelist());
+      .then(resp => this.handlelist(this.state.description));
   }
-  handlelist() {
+  handlelist(description = "") {
+    const search = description ? `&description__regex=/${description}/` : "";
     axios
-      .get(`${URL}?sort=-createAt`)
+      .get(`${URL}?sort=-createAt${search}`)
       .then(resp =>
-        this.setState({ ...this.state, description: "", list: resp.data })
+        this.setState({ ...this.state, description, list: resp.data })
       );
-
-    console.log(this.state.list);
   }
 
   render() {
@@ -62,6 +67,8 @@ class Todo extends Component {
             value={this.state.description}
             handleAdd={this.handleAdd}
             handleChange={this.handleChange}
+            handleSearch={this.handleSearch}
+            handleClear={this.handleClear}
           />
         </div>
         <div className="row">

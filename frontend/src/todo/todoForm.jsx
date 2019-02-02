@@ -20,6 +20,18 @@ export default props => (
         hide={false}
         onClick={props.handleAdd}
       />
+      <IconButton
+        style="info"
+        icon="search"
+        hide={false}
+        onClick={props.handleSearch}
+      />
+      <IconButton
+        style=""
+        icon="close"
+        hide={false}
+        onClick={props.handleClear}
+      />
     </Grid>
   </div>
 );
